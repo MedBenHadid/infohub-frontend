@@ -1,3 +1,3 @@
 export const environment = {
-  apiUrl: 'http://localhost/api',
+  apiUrl: 'https://infohub-backend.onrender.com/api',
 };
