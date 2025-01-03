@@ -1,0 +1,87 @@
+@if (info) {
+<div style="margin-top: 3%; width: 90%; display: grid; justify-self: center">
+  <p-accordion [activeIndex]="0">
+    <p-accordionTab>
+      <ng-template pTemplate="header" class="row">
+        <span class="flex align-items-center gap-2 w-full">
+          <span class="font-bold white-space-nowrap">
+            {{ "Détails de l’Info " + info.title }}
+          </span>
+        </span>
+        <a
+          [href]="'localhost/' + info?.file?.file_path"
+          download
+          rel="noopener noreferrer"
+          style="position: absolute; right: 75px"
+          pButton
+          icon="pi pi-download"
+          class="ml-auto mr-2"
+          severity="warning"
+        ></a>
+        <!-- <button
+          style="position: absolute; right: 16px"
+          pButton
+          icon="pi pi-save"
+          class="ml-auto mr-2"
+          (click)="saveInfo(info.id)"
+          severity="success"
+        ></button> -->
+        @if(info.isSavedByUser == false){
+        <button
+          style="position: absolute; right: 16px"
+          pButton
+          icon="pi pi-save"
+          (click)="saveInfo(info.id)"
+          severity="success"
+        ></button>
+        }@else{
+        <button
+          style="position: absolute; right: 16px"
+          pButton
+          icon="pi pi-minus"
+          (click)="saveInfo(info.id)"
+          severity="contrast"
+        ></button>
+        }
+      </ng-template>
+      <p><strong>Titre :</strong> {{ info.title }}</p>
+      <p><strong>Description :</strong> {{ info.description }}</p>
+      <p><strong>Catégorie :</strong> {{ info.category.name }}</p>
+      <p>
+        <strong>Keywords : &nbsp;</strong>
+        @for (item of info.keywords.split(','); track $index) {
+        <p-tag severity="info" [value]="item" /> &nbsp; }
+      </p>
+      <p><strong>Date de publication :</strong> {{ info.created_at | date }}</p>
+    </p-accordionTab>
+    <p-accordionTab header="Contenu du fichier">
+      @if (isFileViewable(info.file.file_path) &&
+      getSanitizedFile(info.file.file_path)) {
+      <div>
+        <ngx-doc-viewer
+          [url]="base_url + info.file.file_path"
+          viewer="google"
+          style="width: 100%; height: 100vh"
+        ></ngx-doc-viewer>
+
+        <!-- <object>
+        <embed
+          style="width: 70%; height: 500px; border: none"
+          [src]="getSanitizedFile(info.file.file_path)"
+          [type]="info.file.file_path"
+        />
+      </object> -->
+      </div>
+      }@else{
+      <p>
+        Le fichier n'est pas prévisualisable. <br />
+        <a [href]="fileUrl" target="_blank" download>
+          Cliquez ici pour le télécharger.
+        </a>
+      </p>
+      }
+    </p-accordionTab>
+  </p-accordion>
+</div>
+
+}

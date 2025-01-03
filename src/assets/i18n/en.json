@@ -1,0 +1,19 @@
+{
+  "auth": {
+    "signIn": "Sign In",
+    "signInSuccess": "Sign In Success",
+    "signInFailure": "Sign In Failure",
+    "logOut": "Log Out",
+    "logOutSuccess": "Log Out Success",
+    "logOutFailure": "Log Out Failure",
+    "email": "Email",
+    "password": "Password",
+    "error": "Error",
+    "success": "Success",
+    "errorMessage": {
+      "userNotFound": "User Not Found",
+      "wrongPassword": "Wrong Password",
+      "weakPassword": "Weak Password"
+    }
+  }
+}

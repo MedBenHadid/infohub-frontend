@@ -1,0 +1,96 @@
+<p-panel header="Add Information">
+  <!-- <p-toast /> -->
+
+  <form [formGroup]="infoForm" (ngSubmit)="onSubmit()">
+    <div class="p-fluid">
+      <div class="p-field">
+        <label for="title">Title</label>
+        <input pInputText id="title" formControlName="title" required />
+      </div>
+      <div class="p-field">
+        <label for="description">Description</label>
+        <textarea
+          pInputTextarea
+          id="description"
+          formControlName="description"
+          required
+        ></textarea>
+      </div>
+      <div class="p-field">
+        <label for="keywords">Keywords</label>
+        <p-chips formControlName="keywords" />
+      </div>
+      <div class="p-field">
+        <label for="keywords">Category</label>
+        <p-dropdown
+          [options]="categories"
+          formControlName="category"
+          optionLabel="name"
+          placeholder="Select a category"
+        />
+      </div>
+      <div class="p-field">
+        <label for="file">Upload File</label>
+        <!-- <input
+          type="file"
+          id="file"
+          (change)="onFileChange($event)"
+          value="Upload file"
+        />
+        -->
+        <div class="card w-19">
+          <p-toast />
+          <p-fileUpload
+            name="myfile[]"
+            customUpload="true"
+            multiple="false"
+            (uploadHandler)="onUpload($event)"
+            accept="application/*"
+          >
+          </p-fileUpload>
+
+          <!-- <p-fileUpload
+            id="file"
+            name="uploadedFiles"
+            (uploadHandler)="onUpload($event)"
+            [multiple]="true"
+            accept="application/*"
+            maxFileSize="1000000"
+          >
+            <ng-template pTemplate="content">
+              <ul *ngIf="uploadedFiles.length">
+                <li *ngFor="let file of uploadedFiles">
+                  {{ file.name }} - {{ file.size }} bytes
+                </li>
+              </ul>
+            </ng-template>
+          </p-fileUpload> -->
+        </div>
+      </div>
+
+      <button
+        pButton
+        type="submit"
+        label="Submit"
+        [disabled]="!canSubmit"
+      ></button>
+    </div>
+  </form>
+  @if (this.info?.id) { -
+  <div>
+    <ngx-doc-viewer
+      [url]="base_url + info.file.file_path"
+      viewer="google"
+      style="width: 100%; height: 50vh"
+    ></ngx-doc-viewer>
+
+    <!-- <object>
+        <embed
+          style="width: 70%; height: 500px; border: none"
+          [src]="getSanitizedFile(info.file.file_path)"
+          [type]="info.file.file_path"
+        />
+      </object> -->
+  </div>
+  }
+</p-panel>

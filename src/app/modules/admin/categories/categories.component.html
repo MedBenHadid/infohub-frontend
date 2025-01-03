@@ -1,0 +1,50 @@
+<p-panel header="Add Information">
+  <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
+    <div class="p-fluid">
+      <div class="p-field">
+        <label for="name">Name</label>
+        <input pInputText id="name" formControlName="name" required />
+      </div>
+
+      <button pButton type="submit" label="Submit"></button>
+    </div>
+  </form>
+</p-panel>
+
+<div style="width: 90%; justify-self: center; margin-top: 10px">
+  <p-table [value]="categories">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Nom</th>
+        <th>Date de publication</th>
+        <th>Action</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-category>
+      <tr>
+        <td>{{ category?.name }}</td>
+        <td>{{ category?.created_at | date : "short" }}</td>
+
+        <td style="gap: 10px; display: flex">
+          <!-- <button
+            pButton
+            icon="pi pi-info-circle"
+            (click)="showInfo(info.id)"
+            severity="secondary"
+          ></button> -->
+          <button
+            pButton
+            icon="pi pi-pencil"
+            (click)="editCategory(category)"
+          ></button>
+          <button
+            pButton
+            icon="pi pi-trash"
+            (click)="deleteCategory(category.id)"
+            severity="danger"
+          ></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

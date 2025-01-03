@@ -1,0 +1,28 @@
+p-panel {
+  // margin-top: 6%;
+  display: block;
+  // justify-content: center;
+  form {
+    width: 90%;
+    justify-self: center;
+  }
+  // .p-panel .p-panel-content {
+  //   display: flex !important;
+  //   justify-content: center !important;
+  //   form {
+  //     width: 90%;
+  //     justify-self: center;
+  //   }
+  // }
+  ::ng-deep {
+    .p-panel {
+      width: 70%;
+      justify-self: center;
+      margin-top: 12px;
+    }
+  }
+}
+.p-field {
+  margin-top: 10px;
+
+}

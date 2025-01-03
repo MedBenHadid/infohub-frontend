@@ -1,0 +1,58 @@
+<p-menubar [model]="items" styleClass="app-menubar">
+  <ng-template pTemplate="end">
+    @if(this.user?.id ){
+    <div class="flex align-items-center gap-2">
+      <!-- <button pButton></button> -->
+      <p-button
+        (onClick)="user?.saved_infos?.length > 0 ? op.toggle($event) : ''"
+        label="Saved Info"
+        [badge]="user?.saved_infos?.length"
+        icon="pi pi-inbox"
+        severity="secondary"
+      />
+    </div>
+    }
+  </ng-template>
+
+  <p-overlayPanel #op [style]="{ width: '450px' }" [showCloseIcon]="true">
+    <ng-template pTemplate="content">
+      <p-table
+        [value]="user?.saved_infos"
+        selectionMode="single"
+        responsiveLayout="scroll"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th pSortableColumn="name">Titre <p-sortIcon field="title" /></th>
+            <th pSortableColumn="price">Action</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-info>
+          <tr [pSelectableRow]="rowData">
+            <td>
+              {{ info?.title }}
+            </td>
+
+            <td>
+              <div style="display: flex; gap: 10px">
+                <button
+                  pButton
+                  icon="pi pi-info-circle"
+                  severity="secondary"
+                  (click)="showInfo(info.id)"
+                ></button>
+                <button
+                  pButton
+                  icon="pi pi-trash"
+                  severity="danger"
+                  (click)="saveInfo(info.id)"
+                ></button>
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </ng-template>
+  </p-overlayPanel>
+</p-menubar>
+<router-outlet></router-outlet>

@@ -1,0 +1,47 @@
+.home-card {
+  width: 500px;
+  margin: 5em auto;
+  padding: 2em;
+}
+
+// button {
+//   width: 100%;
+// }
+p-menubarsub {
+  ::ng-deep {
+    ul {
+      margin-bottom: 0px !important;
+    }
+  }
+}
+
+.flex {
+  display: flex;
+}
+
+.justify-content-left {
+  justify-content: left;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.flex-row {
+  flex-direction: row;
+}
+
+.gap-3 {
+  gap: 1rem; /* Adjust spacing between form fields */
+}
+p-card {
+  ::ng-deep {
+    .p-card .p-card-content {
+      padding: 0 !important;
+    }
+  }
+}

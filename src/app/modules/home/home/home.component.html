@@ -1,0 +1,138 @@
+<p-card header="Bienvenue">
+  <p-toast />
+  <p-confirmPopup />
+
+  <div>
+    <!-- Formulaire de filtres -->
+    <h4>Filter :</h4>
+    <form [formGroup]="filterForm" (ngSubmit)="filterInfos()">
+      <div class="flex justify-content-center align-items-center gap-3">
+        <!-- Champ de recherche par nom de fichier -->
+        <div class="flex flex-column">
+          <p-floatLabel>
+            <input pInputText id="title" formControlName="title" />
+            <label for="title">Titre</label>
+          </p-floatLabel>
+        </div>
+
+        <div class="flex flex-column">
+          <p-floatLabel>
+            <input pInputText id="file_name" formControlName="file_name" />
+            <label for="file_name">Nom du fichier</label>
+          </p-floatLabel>
+        </div>
+
+        <!-- Champ de recherche par description -->
+        <div class="flex flex-column">
+          <p-floatLabel>
+            <input pInputText id="description" formControlName="description" />
+            <label for="description">Description</label>
+          </p-floatLabel>
+        </div>
+
+        <!-- Champ de recherche par mots-clés -->
+        <div class="flex flex-column">
+          <p-floatLabel>
+            <input pInputText id="keywords" formControlName="keywords" />
+            <label for="keywords">Mots-clés</label>
+          </p-floatLabel>
+        </div>
+
+        <!-- Champ de sélection des catégories -->
+        <div class="flex flex-column">
+          <span>
+            <p-multiSelect
+              [options]="categories"
+              display="chip"
+              formControlName="categoriesId"
+              optionLabel="name"
+              optionValue="id"
+              placeholder="Sélectionnez les catégories"
+            ></p-multiSelect>
+          </span>
+        </div>
+
+        <!-- Boutons -->
+        <div class="flex flex-row justify-content-end align-items-center gap-2">
+          <p-button type="submit" icon="pi pi-check" />
+          <p-button
+            icon="pi pi-times"
+            severity="danger"
+            (click)="resetFilters()"
+          />
+        </div>
+      </div>
+    </form>
+  </div>
+</p-card>
+<div style="width: 97%; justify-self: center; margin-top: 10px">
+  <p-table [value]="infos">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Titre</th>
+        <th>Description</th>
+        <th>Catégorie</th>
+        <th>Keywords</th>
+        <th>Date de publication</th>
+        <th>Actions</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-info>
+      <tr>
+        <td>{{ info.title }}</td>
+        <td>
+          <span style="max-width: 25vw">
+            {{ info.description | truncate : 20 }}
+          </span>
+        </td>
+
+        <td>{{ info?.category?.name }}</td>
+        <td style="max-width: 25vw; line-height: 1.9">
+          @for (item of info.keywords.split(','); track $index) {
+          <p-tag severity="info" [value]="item" /> &nbsp; }
+        </td>
+        <td>{{ info.created_at | date : "short" }}</td>
+
+        <td style="gap: 10px">
+          <div style="display: flex; gap: 10px">
+            <button
+              pButton
+              icon="pi pi-info-circle"
+              (click)="showInfo(info.id)"
+              severity="secondary"
+            ></button>
+            @if(this.user?.role.id==1){
+            <button
+              pButton
+              icon="pi pi-pencil"
+              (click)="editInfo(info.id)"
+            ></button>
+            <button
+              pButton
+              icon="pi pi-trash"
+              (click)="deleteInfo($event, info.id)"
+              severity="danger"
+            ></button>
+            }
+             @if(info.isSavedByUser == false){
+
+            <button
+              pButton
+              icon="pi pi-save"
+              (click)="saveInfo(info.id)"
+              severity="success"
+            ></button>
+            }@else{
+            <button
+              pButton
+              icon="pi pi-minus"
+              (click)="saveInfo(info.id)"
+              severity="contrast"
+            ></button>
+            }
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
