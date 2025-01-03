@@ -4,12 +4,13 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Info } from '../models/info.model';
 import { ENDPOINTS } from '../configs/api-endpoints';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class InfoService {
-  private baseURI = 'http://localhost/api';
+  private baseURI = environment.apiUrl;
   private apiUrl = this.baseURI + '/infos'; // URL de base pour le backend Laravel
 
   constructor(private http: HttpClient) {}
